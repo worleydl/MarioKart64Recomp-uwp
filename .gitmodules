@@ -1,6 +1,6 @@
 [submodule "lib/N64ModernRuntime"]
 	path = lib/N64ModernRuntime
-	url = https://github.com/N64Recomp/N64ModernRuntime
+	url = https://github.com/worleydl/N64ModernRuntime-dev
 [submodule "lib/RmlUi"]
 	path = lib/RmlUi
 	url = https://github.com/mikke89/RmlUi
@@ -12,7 +12,7 @@
 	url = https://github.com/sammycage/lunasvg
 [submodule "lib/rt64"]
 	path = lib/rt64
-	url = https://github.com/rt64/rt64
+	url = https://github.com/worleydl/rt64-dev
 [submodule "lib/sse2neon"]
 	path = lib/sse2neon
 	url = https://github.com/DLTcollab/sse2neon

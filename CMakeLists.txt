@@ -66,6 +66,9 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/lib/N64ModernRuntime)
 target_include_directories(rt64 PRIVATE ${CMAKE_BINARY_DIR}/rt64/src)
 
 # RecompiledFuncs - Library containing the primary recompiler output
+add_compile_definitions(
+	_UWP
+)
 add_library(RecompiledFuncs STATIC)
 
 target_compile_options(RecompiledFuncs PRIVATE
@@ -145,7 +148,7 @@ add_custom_command(OUTPUT
 )
 
 # Main executable
-add_executable(MarioKart64Recompiled)
+add_library(MarioKart64Recompiled STATIC)
 
 set (SOURCES
     ${CMAKE_SOURCE_DIR}/src/main/main.cpp
@@ -276,6 +279,8 @@ if (WIN32)
         ${sdl2_SOURCE_DIR}/lib/x64
     )
 
+    # TODO: Make UWP build optional
+    if(FALSE)
     # Copy SDL2 and dxc DLLs to output folder as post build step
     add_custom_command(TARGET MarioKart64Recompiled POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
@@ -295,6 +300,7 @@ if (WIN32)
 
     target_sources(MarioKart64Recompiled PRIVATE ${CMAKE_SOURCE_DIR}/icons/app.rc)
     target_link_libraries(MarioKart64Recompiled PRIVATE SDL2 Winmm.lib)
+    endif()
 endif()
 
 if (APPLE)
