@@ -3,7 +3,9 @@
 #include "nfd.h"
 #include "RmlUi/Core.h"
 
+#ifdef _UWP
 extern "C" __declspec(dllimport) void uwp_PickAFile(char* path);
+#endif
 
 namespace zelda64 {
     // MARK: - Internal Helpers

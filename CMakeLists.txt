@@ -19,6 +19,11 @@ endif()
 # Opt out of constexpr mutex constructor on windows to prevent vcredist issues
 if (WIN32)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_DISABLE_CONSTEXPR_MUTEX_CONSTRUCTOR")
+    option(UWP_BUILD "Build as static lib for launch via external cmake project" OFF)
+
+    if(UWP_BUILD)
+        add_compile_definitions(_UWP)
+    endif()
 endif()
 
 if (APPLE)
@@ -66,9 +71,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/lib/N64ModernRuntime)
 target_include_directories(rt64 PRIVATE ${CMAKE_BINARY_DIR}/rt64/src)
 
 # RecompiledFuncs - Library containing the primary recompiler output
-add_compile_definitions(
-	_UWP
-)
+
 add_library(RecompiledFuncs STATIC)
 
 target_compile_options(RecompiledFuncs PRIVATE
@@ -279,8 +282,7 @@ if (WIN32)
         ${sdl2_SOURCE_DIR}/lib/x64
     )
 
-    # TODO: Make UWP build optional
-    if(FALSE)
+    if(NOT UWP_BUILD)
     # Copy SDL2 and dxc DLLs to output folder as post build step
     add_custom_command(TARGET MarioKart64Recompiled POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
